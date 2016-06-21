@@ -1,0 +1,36 @@
+gastric <- function(){
+data <- read.csv("gastricdatanames.csv",header=TRUE)
+dif <- 0
+diff <- 0
+count <- matrix(0,9)
+for (i in 1:407){
+	n <- 0
+	n <- i+1
+	for (j in n:408){	
+		if (i != j){
+			dif <- data[i,2]-data[j,2]
+			if (abs(dif) > 2){
+				count[9] <- count[9]+1
+				if ( data[i,2] > data[j,2]){
+					for ( k in 3:10){
+						if (data[i,k] > data[j,k]){
+							count[k] <- count[k]+1
+						}
+					}
+				}
+				else
+				{
+					for ( k in 3:10){
+						if (data[i,k] <= data[j,k]){
+							count[k-2] <- count[k-2]+1
+						}
+					}
+				}
+	
+			}
+		}
+	}
+}
+print(count)
+}			
+							
