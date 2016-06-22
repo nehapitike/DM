@@ -1,0 +1,46 @@
+####It is different type of correlation plot for the gene data
+gastric <- function(){
+data <- read.csv("gastricdatanames.csv",header=TRUE)
+dif <- 0
+diff <- 0
+count <- matrix(0,1)
+gastric <- matrix(0,34206,9)
+
+l <- 0
+for (i in 1:407){
+	n <- 0
+	n <- i+1
+	for (j in n:408){	
+		if (i != j){
+			dif <- data[i,2]-data[j,2]
+			if (abs(dif) > 2){
+				count[1] <- count[1]+1
+				l <- l+1
+				if ( data[i,2] > data[j,2]){
+					gastric[l,1] <- data[i,2]-data[j,2]
+					
+					for ( k in 3:10){
+						gastric[l,k-1] <- data[i,k]-data[j,k]
+					}
+				}
+				else
+				{
+					gastric[l,1] <- data[j,2]-data[i,2]
+					
+					for ( k in 3:10){
+						gastric[l,k-1] <- data[j,k]-data[i,k]
+					}
+				}
+	
+			}
+		}
+	}
+}
+print(count)
+print("breaK")
+write.csv(gastric , file = "gastricplot.csv", append = FALSE, quote = TRUE, sep = " ",
+            eol = "\n", na = "NA", dec = ".", row.names = TRUE,
+            col.names = TRUE, qmethod = c("escape", "double"),
+            fileEncoding = "")
+}			
+							
